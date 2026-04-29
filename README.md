@@ -1,49 +1,36 @@
-# 🏦 IN1888 - Crypto Exchange File Processor
+# IN1888 - Formatador de Arquivo de Exchange
 
-🚀 **IN1888** is a Python-based script designed to process and format financial records from exchange files.  
-It **normalizes CPF/CNPJ formats**, converts **dates**, adjusts **cryptocurrency quantities** to **10 decimal places**, and reformats **monetary values** for accurate reporting.
+Script Python para processar e formatar arquivos de cripto-ativos no layout IN1888 (Receita Federal).
 
----
+## O que faz
 
-## 📖 Features
-✅ **Formats CPF/CNPJ** – Removes non-numeric characters for consistency.  
-✅ **Converts dates** – Ensures standardized date formats.  
-✅ **Formats cryptocurrency amounts** – Converts to 10 decimal places.  
-✅ **Monetary values normalization** – Converts amounts into proper currency format.  
+- Converte valores monetários de centavos para reais com vírgula decimal
+- Converte quantidades de criptoativos para 10 casas decimais
+- Valida e padroniza datas
+- Grava o arquivo de saída com CRLF (padrão exigido pela Receita)
 
----
+## Como usar
 
-## 📂 File Processing Example
-### **Input (`2025_02_exchange_bin.txt`):**
+Sem dependências externas — requer apenas Python 3.
 
-0110|01012025|John Doe|123.456.789-00|100000|25000|BTC|1000000000 
-0510|01012025|Company X|12.345.678/0001-00|500000|ETH|2000000000
-
-
-### **Output (After Processing):**
-
-0110|01012025|John Doe|12345678900|1.000,00|250,00|BTC|0,1000000000 
-0510|01012025|Company X|12345678000100|5.000,00|ETH|0,2000000000
-
----
-
-## 🚀 How to Use
-### 1️⃣ Clone the Repository
 ```bash
-git clone git@github.com:orismarfh/IN1888.git
+git clone https://github.com/orismarfh/IN1888.git
 cd IN1888
+python3 formatar2_csv.py /caminho/para/2026_03_exchange_bin.txt
+```
 
-2️⃣ Install Dependencies
-pip install pandas
-3️⃣ Run the Script
-python processar_arquivo.py
-📜 License
+O arquivo de saída é gerado automaticamente no mesmo diretório do input:
+`2026_03_exchange_bin.txt` → `2026_03_ajustedezero.txt`
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+## Registros processados
 
-👤 Created by @orismarfh – Feel free to contribute or report issues! 🚀
+| Registro | Campos ajustados |
+|---|---|
+| `0110` | data, valor (÷100), campo5, quantidade cripto (÷10¹⁰) |
+| `0510` | valor (÷100), quantidade cripto (÷10¹⁰) |
+| `1000` | valor (÷100) |
+| `9999` | valor (÷100) |
 
+## Licença
 
-
-
-# IN1888
+MIT
